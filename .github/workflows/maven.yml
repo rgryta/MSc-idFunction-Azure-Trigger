@@ -30,6 +30,7 @@ jobs:
       run: |
         pushd $PWD
         cd ./src/main/java/com/function
+        sudo apt-get install replace
         replace  'env.get("PSWD")' "${{ secrets.PSWD }}" Function.java
         sed -i 's/env\.get(\"URL\")/'"${{ secrets.URL }}"'/g' Function.java
         sed -i 's/env\.get(\"USER\")/'"${{ secrets.USER }}"'/g' Function.java
