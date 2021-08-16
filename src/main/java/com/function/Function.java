@@ -64,6 +64,7 @@ public class Function {
             return request.createResponseBuilder(HttpStatus.OK).body("SUCCESS").build();
         }
         catch(Exception e){
+            context.getLogger().info("Message body: " + request.getBody().toString());
             context.getLogger().warning(e.getMessage().toString());
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body(e.getMessage().toString()).build();
         }
