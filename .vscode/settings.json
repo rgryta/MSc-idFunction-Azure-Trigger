@@ -1,0 +1,8 @@
+{
+  "azureFunctions.deploySubpath": "target/azure-functions/idFunction",
+  "azureFunctions.projectLanguage": "Java",
+  "azureFunctions.projectRuntime": "~3",
+  "debug.internalConsoleOptions": "neverOpen",
+  "azureFunctions.preDeployTask": "package (functions)",
+  "java.configuration.updateBuildConfiguration": "automatic"
+}
