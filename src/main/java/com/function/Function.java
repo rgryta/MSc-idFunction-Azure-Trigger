@@ -21,6 +21,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Map;
 import java.util.Base64;
+import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.zip.GZIPInputStream;
 
@@ -35,13 +36,15 @@ public class Function {
                 name = "req",
                 methods = {HttpMethod.POST},
                 authLevel = AuthorizationLevel.FUNCTION)
-                HttpRequestMessage<String> request,
+                HttpRequestMessage<Optional<String>> request,
             final ExecutionContext context) {
         context.getLogger().info("Java HTTP trigger processed a request.");
 
-        Map<String,String> env = System.getenv();		
+        Map<String,String> env = System.getenv();	
+        Supplier<String> descriptionSupplier = () -> "{ \"entry\":\"\"}";	
         try {
-            JSONObject requestBody = new JSONObject(request.getBody().toString());
+            JSONObject requestBody = new JSONObject(request.getBody().orElseGet(descriptionSupplier).toString());
+            if (requestBody.optString("entry").equals("")) throw new Exception("Empty message content");
     
             Connection connection = DriverManager.getConnection(env.get("URL"), env.get("USER"),env.get("PSWD"));
             context.getLogger().info("Database connection: " + connection.getCatalog());
