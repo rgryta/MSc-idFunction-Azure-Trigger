@@ -21,7 +21,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Map;
 import java.util.Base64;
-import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.zip.GZIPInputStream;
 
@@ -36,7 +35,7 @@ public class Function {
                 name = "req",
                 methods = {HttpMethod.POST},
                 authLevel = AuthorizationLevel.FUNCTION)
-                HttpRequestMessage<Optional<String>> request,
+                HttpRequestMessage<String> request,
             final ExecutionContext context) {
         context.getLogger().info("Java HTTP trigger processed a request.");
 
