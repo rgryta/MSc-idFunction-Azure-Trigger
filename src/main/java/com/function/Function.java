@@ -41,10 +41,8 @@ public class Function {
         context.getLogger().info("Java HTTP trigger processed a request.");
 
         Map<String,String> env = System.getenv();		
-        Supplier<String> descriptionSupplier = () -> "This is description for MovieItem";
         try {
-            JSONObject requestBody = new JSONObject(request.getBody().orElseGet(descriptionSupplier).toString());
-            String uncompressedStr = uncompressString(requestBody.optString("entry"));
+            JSONObject requestBody = new JSONObject(request.getBody());
     
             Connection connection = DriverManager.getConnection(env.get("URL"), env.get("USER"),env.get("PWD"));
             context.getLogger().info("Database connection: " + connection.getCatalog());
@@ -52,8 +50,6 @@ public class Function {
             String stmt = "INSERT INTO DATA_ENTRIES (DATA_ENTRY) VALUES (?)";
             PreparedStatement statement = connection.prepareStatement(stmt);
             try{
-                statement.setString(1,uncompressedStr);
-                statement.executeUpdate();
                 statement.setString(1,requestBody.optString("entry"));
                 statement.executeUpdate();
             }
