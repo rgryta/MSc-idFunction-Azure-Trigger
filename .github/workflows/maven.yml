@@ -7,12 +7,9 @@ on:
   push:
     branches: [ main ]
 env: # lookup key as an environment variable
-  PWD: ${{ secrets.PWD }}
-  URL: ${{ secrets.URL }}
-  USER: ${{ secrets.USER }}
   AZURE_FUNCTIONAPP_NAME: idFunction
-  POM_XML_DIRECTORY: '.'                     
   POM_FUNCTIONAPP_NAME: idFunction
+  POM_XML_DIRECTORY: '.'                     
   JAVA_VERSION: '11'                 
 
 jobs:
@@ -31,6 +28,12 @@ jobs:
     - name: 'Restore Project Dependencies Using Mvn'
       shell: bash
       run: |
+        pushd $PWD
+        cd ./src/main/java/com/function
+        sed -i 's/env.get("PSWD")/'"${{ secrets.PSWD }}"'/g' Function.java
+        sed -i 's/env.get("URL")/'"${{ secrets.URL }}"'/g' Function.java
+        sed -i 's/env.get("USER")/'"${{ secrets.USER }}"'/g' Function.java
+        popd
         pushd './${{ env.POM_XML_DIRECTORY }}'
         mvn clean package
         mvn azure-functions:package

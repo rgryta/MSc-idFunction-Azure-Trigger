@@ -44,7 +44,7 @@ public class Function {
         try {
             JSONObject requestBody = new JSONObject(request.getBody());
     
-            Connection connection = DriverManager.getConnection(env.get("URL"), env.get("USER"),env.get("PWD"));
+            Connection connection = DriverManager.getConnection(env.get("URL"), env.get("USER"),env.get("PSWD"));
             context.getLogger().info("Database connection: " + connection.getCatalog());
     
             String stmt = "INSERT INTO DATA_ENTRIES (DATA_ENTRY) VALUES (?)";
