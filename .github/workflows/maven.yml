@@ -12,9 +12,9 @@ env: # lookup key as an environment variable
   PWD: ${{ secrets.PWD }}
   URL: ${{ secrets.URL }}
   USER: ${{ secrets.USER }}
-  AZURE_FUNCTIONAPP_NAME: id-creator
+  AZURE_FUNCTIONAPP_NAME: idFunction
   POM_XML_DIRECTORY: '.'                     
-  POM_FUNCTIONAPP_NAME: id-creator
+  POM_FUNCTIONAPP_NAME: idFunction
   JAVA_VERSION: '11'                 
 
 jobs:
@@ -37,7 +37,7 @@ jobs:
         mvn clean package
         mvn azure-functions:package
         popd
-    - name: 'Run Azure Functions Action'
+    - name: 'Run Azure Functions Deploy'
       uses: Azure/functions-action@v1
       id: fa
       with:
