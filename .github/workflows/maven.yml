@@ -28,13 +28,6 @@ jobs:
     - name: 'Restore Project Dependencies Using Mvn'
       shell: bash
       run: |
-        pushd $PWD
-        cd ./src/main/java/com/function
-        sudo apt-get install replace
-        replace  'env.get("PSWD")' "${{ secrets.PSWD }}" Function.java
-        sed -i 's/env\.get(\"URL\")/'"${{ secrets.URL }}"'/g' Function.java
-        sed -i 's/env\.get(\"USER\")/'"${{ secrets.USER }}"'/g' Function.java
-        popd
         pushd './${{ env.POM_XML_DIRECTORY }}'
         mvn clean package
         mvn azure-functions:package
