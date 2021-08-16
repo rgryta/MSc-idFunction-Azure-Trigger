@@ -38,9 +38,11 @@ jobs:
         mvn azure-functions:package
         popd
     - name: 'Run Azure Functions Deploy'
-      uses: Azure/functions-action@v1
+      uses: Azure/functions-action@v1.3.2
       id: fa
       with:
         app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
         package: './${{ env.POM_XML_DIRECTORY }}/target/azure-functions/${{ env.POM_FUNCTIONAPP_NAME }}'
         publish-profile: ${{ secrets.AZURE_CREDS }}
+        scm-do-build-during-deployment: true
+        enable-oryx-build: true
