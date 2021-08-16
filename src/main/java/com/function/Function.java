@@ -42,7 +42,7 @@ public class Function {
 
         Map<String,String> env = System.getenv();		
         try {
-            JSONObject requestBody = new JSONObject(request.getBody());
+            JSONObject requestBody = new JSONObject(request.getBody().toString());
     
             Connection connection = DriverManager.getConnection(env.get("URL"), env.get("USER"),env.get("PSWD"));
             context.getLogger().info("Database connection: " + connection.getCatalog());
@@ -50,13 +50,13 @@ public class Function {
             String stmt = "INSERT INTO DATA_ENTRIES (DATA_ENTRY) VALUES (?)";
             PreparedStatement statement = connection.prepareStatement(stmt);
             try{
-                statement.setString(1,requestBody.optString("entry").toString());
+                statement.setString(1,requestBody.optString("entry"));
                 statement.executeUpdate();
             }
             catch(SQLException e){
                 context.getLogger().warning(e.getMessage().toString());
             }
-            context.getLogger().info("Logged: " + requestBody.optString("entry").toString());
+            context.getLogger().info("Logged: " + requestBody.optString("entry"));
             
             statement.close();
             connection.close();

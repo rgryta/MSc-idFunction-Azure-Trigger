@@ -7,6 +7,9 @@ on:
   push:
     branches: [ main ]
 env: # lookup key as an environment variable
+  USER: ${{ secrets.USER }}
+  PSWD: ${{ secrets.PWD }}
+  URL: ${{ secrets.URL }}
   AZURE_FUNCTIONAPP_NAME: idFunction
   POM_FUNCTIONAPP_NAME: idFunction
   POM_XML_DIRECTORY: '.'                     
