@@ -40,9 +40,7 @@ public class Function {
             final ExecutionContext context) {
         context.getLogger().info("Java HTTP trigger processed a request.");
 
-        Map<String,String> env = System.getenv();
-        return env.get(tokenVariableName);
-		
+        Map<String,String> env = System.getenv();		
         Supplier<String> descriptionSupplier = () -> "This is description for MovieItem";
         try {
             JSONObject requestBody = new JSONObject(request.getBody().orElseGet(descriptionSupplier).toString());
