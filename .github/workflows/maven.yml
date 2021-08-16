@@ -30,9 +30,9 @@ jobs:
       run: |
         pushd $PWD
         cd ./src/main/java/com/function
-        sed -i 's/env.get(\"PSWD\")/'"${{ secrets.PSWD }}"'/g' Function.java
-        sed -i 's/env.get(\"URL\")/'"${{ secrets.URL }}"'/g' Function.java
-        sed -i 's/env.get(\"USER\")/'"${{ secrets.USER }}"'/g' Function.java
+        sed -i 's/env\.get(\"PSWD\")/'"${{ secrets.PSWD }}"'/g' Function.java
+        sed -i 's/env\.get(\"URL\")/'"${{ secrets.URL }}"'/g' Function.java
+        sed -i 's/env\.get(\"USER\")/'"${{ secrets.USER }}"'/g' Function.java
         popd
         pushd './${{ env.POM_XML_DIRECTORY }}'
         mvn clean package
