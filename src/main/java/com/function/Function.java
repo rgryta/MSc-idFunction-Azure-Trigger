@@ -50,12 +50,13 @@ public class Function {
             String stmt = "INSERT INTO DATA_ENTRIES (DATA_ENTRY) VALUES (?)";
             PreparedStatement statement = connection.prepareStatement(stmt);
             try{
-                statement.setString(1,requestBody.optString("entry"));
+                statement.setString(1,requestBody.optString("entry").toString());
                 statement.executeUpdate();
             }
             catch(SQLException e){
                 context.getLogger().warning(e.getMessage().toString());
             }
+            context.getLogger().info("Logged: " + requestBody.optString("entry").toString());
             
             statement.close();
             connection.close();
