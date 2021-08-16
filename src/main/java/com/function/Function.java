@@ -45,7 +45,6 @@ public class Function {
         try {
             JSONObject requestBody = new JSONObject(request.getBody().orElseGet(descriptionSupplier).toString());
             String uncompressedStr = uncompressString(requestBody.optString("entry"));
-            //JSONObject jsnMsg = new JSONObject(uncompressedStr);
     
             Connection connection = DriverManager.getConnection(env.get("URL"), env.get("USER"),env.get("PWD"));
             context.getLogger().info("Database connection: " + connection.getCatalog());
@@ -70,36 +69,6 @@ public class Function {
         catch(Exception e){
             context.getLogger().warning(e.getMessage().toString());
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body(e.getMessage().toString()).build();
-        }
-
-
-        
-    }
-    public static String uncompressString(String dataToUncompress) throws IOException {
-        byte[] bytes = Base64.getDecoder().decode(dataToUncompress.getBytes(StandardCharsets.UTF_8));
-        if (bytes == null || bytes.length == 0)
-        {
-            return null;
-        }
-        else
-        {
-            ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-            GZIPInputStream is = new GZIPInputStream(bais);
-            byte[] tmp = new byte[256];
-            while (true)
-            {
-                int r = is.read(tmp);
-                if (r < 0)
-                {
-                    break;
-                }
-                buffer.write(tmp, 0, r);
-            }
-            is.close();
-
-            byte[] content = buffer.toByteArray();
-            return new String(content, StandardCharsets.UTF_8);
         }
     }
 }

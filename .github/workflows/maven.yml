@@ -6,8 +6,6 @@ name: Deploy idFunction
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 env: # lookup key as an environment variable
   PWD: ${{ secrets.PWD }}
   URL: ${{ secrets.URL }}
